@@ -5,6 +5,34 @@ Each flow supports ticket lifecycle automation, asset tracking, or team communic
 
 ---
 
+## SLA Date Assignment Flow
+
+- **Trigger:** When a new ticket is created in Dataverse  
+- **Purpose:** Set the SLA due date based on ticket priority
+
+### Logic:
+- Low → +3 days  
+- Medium → +2 days  
+- High → +1 day  
+- Critical → +4 hours  
+
+### Steps:
+1. Get ticket by ID  
+2. Switch on Priority  
+3. Use Compose to calculate SLA date
+4. Update SLA Date field
+
+#### Example Expression (Critical Priority)
+- Adds 4 hours to the ticket's Created On date to calculate the SLA deadline for Critical tickets
+```plaintext
+addHours(outputs('Get_a_row_by_ID_-_Ticket')?['body/createdon'], 4)
+```
+
+![SLA Flow](https://raw.githubusercontent.com/jonathanduru/IT-Helpdesk-Suite/refs/heads/main/assets/screenshots/SLAdateFlow.png)
+
+
+---
+
 ## 📧 New Ticket Notification Flow
 
 - **Trigger:** When a new ticket is created in Dataverse
